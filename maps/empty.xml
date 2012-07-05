@@ -1,0 +1,10 @@
+<map xmlns="http://mokoi.info/projects/mokoi">
+<settings>
+	<dimensions width="1" height="1" />
+	<color red="64" blue="124" green="98" mode="0" />
+</settings>
+<object value="Rectangle" type="rect" >
+	<position x="110" y="92" w="224" h="126" z="0" r="0" f="0"/>
+	<color red="255" blue="255" green="255" alpha="255" />
+</object>
+</map>

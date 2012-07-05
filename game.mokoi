@@ -1,0 +1,23 @@
+[Mokoi]
+project.title=The Hunt
+project.author=Luke Salisbury
+project.creation=1341455846
+project.id=2696924684
+project.plugin=1000
+player.number=1
+debug.able=true
+save.allowed=true
+map.width=960
+map.height=640
+screen.width=960
+screen.height=640
+display.width=640
+display.height=480
+language.default=en
+display.mode=native
+display.colour=0
+display.fullscreen=false
+display.customsize=false
+audio.able=false
+save.access=false
+map.start=empty
