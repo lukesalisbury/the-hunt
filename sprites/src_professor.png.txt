@@ -1,0 +1,40 @@
+back_0	2	0	0	0	0	64	64
+back_1	2	0	0	64	0	64	64
+back_2	2	0	0	128	0	64	64
+back_3	2	0	0	192	0	64	64
+back_4	2	0	0	256	0	64	64
+back_5	2	0	0	320	0	64	64
+back_6	2	0	0	384	0	64	64
+back_7	2	0	0	448	0	64	64
+back_8	2	0	0	512	0	64	64
+back	2	0	0	ANIMATION	100	back_1	back_2	back_3	back_4	back_5	back_6	back_7	back_8
+left_0	2	0	0	0	64	64	64
+left_1	2	0	0	64	64	64	64
+left_2	2	0	0	128	64	64	64
+left_3	2	0	0	192	64	64	64
+left_4	2	0	0	256	64	64	64
+left_5	2	0	0	320	64	64	64
+left_6	2	0	0	384	64	64	64
+left_7	2	0	0	448	64	64	64
+left_8	2	0	0	512	64	64	64
+left	2	0	0	ANIMATION	100	left_1	left_2	left_3	left_4	left_5	left_6	left_7	left_8
+front_0	0	0	0	0	128	64	64
+front_1	2	0	0	64	128	64	64
+front_2	2	0	0	128	128	64	64
+front_3	2	0	0	192	128	64	64
+front_4	2	0	0	256	128	64	64
+front_5	2	0	0	320	128	64	64
+front_6	2	0	0	384	128	64	64
+front_7	2	0	0	448	128	64	64
+front_8	2	0	0	512	128	64	64
+front	2	0	0	ANIMATION	100	front_1	front_2	front_3	front_4	front_5	front_6	front_7	front_8
+right_0	2	0	0	0	192	64	64
+right_1	2	0	0	64	192	64	64
+right_2	2	0	0	128	192	64	64
+right_3	2	0	0	192	192	64	64
+right_4	2	0	0	256	192	64	64
+right_5	2	0	0	320	192	64	64
+right_6	2	0	0	384	192	64	64
+right_7	2	0	0	448	192	64	64
+right_8	2	0	0	512	192	64	64
+right	2	0	0	ANIMATION	100	right_1	right_2	right_3	right_4	right_5	right_6	right_7	right_8
