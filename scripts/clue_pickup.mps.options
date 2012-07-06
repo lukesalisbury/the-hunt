@@ -1,1 +1,4 @@
-<entity/>
+<entity>
+	<option name="" value="" type="" />
+	<option name="clue-item" value="" type="entity-clue" />
+</entity>
