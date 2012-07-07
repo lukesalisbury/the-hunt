@@ -183,7 +183,7 @@ PlayerMove()
 	if ( x_movement || y_movement )
 	{
 		_angle_ = fatan2( x_movement, -y_movement, degrees) + 90.0;
-		_speed_ = 16.0;
+		_speed_ = 32.0;
 	}
 	else
 	{
@@ -212,6 +212,10 @@ CheckCollisions()
 			else if ( type == TYPE_CLUE )
 			{
 				GraphicsDraw("Pickup Clue?", TEXT, 0,16,6,0,0, WHITE);
+				if ( InputButton(0) )
+				{
+					EntityPublicFunction( current, "PickUp", "");
+				}
 			}
 		}
 	}

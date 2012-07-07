@@ -1,14 +1,21 @@
 
+forward public PickUp();
+
 new Fixed:_x_, Fixed:_y_, Fixed:_z_;
 new object:obj = object:-1;
 
 new hotSpotX,hotSpotY;
 
+new childrenEntity[64];
 
 public Init( ... )
 {
 	EntityGetPosition(_x_, _y_, _z_);
 	obj = object:EntityGetNumber("object-id");
+
+	//
+	EntityGetSetting(SELF,"clue-item", childrenEntity);
+	
 	
 	// Get Hotspot info
 	new dx = fround(_x_);
@@ -23,6 +30,11 @@ public Init( ... )
 
 }
 
+public Close()
+{
+	CollisionSet(SELF, 0);
+	CollisionSet(SELF, 1);
+}
 
 main()
 {
@@ -33,3 +45,12 @@ main()
 
 
 }
+
+
+public PickUp()
+{
+	if ( childrenEntity[0] )
+		EntityCreate(childrenEntity, childrenEntity, 1, 1, 1, GLOBAL_MAP, 64, "");
+	EntityDelete();
+}
+
