@@ -1,3 +1,4 @@
+forward public pickUp();
 
 enum combineOption
 {
@@ -58,8 +59,12 @@ public Init( ... )
 {
 	name = "Test Clue";
 	description = "Hello all";
+	EntityPublicFunction("main", "ShowMsg", "s", description );
 	//SetCombination( id, clueID, location );
 }
 
-
+public pickUp()
+{
+	EntityPublicFunction("main", "ShowMsg", "s", description );
+}
 

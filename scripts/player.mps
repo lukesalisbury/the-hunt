@@ -20,6 +20,7 @@ new Fixed:_speed_ = 1.0;
 new player_direction = 0;
 new checks[8][3];
 
+new player_mode = 1;
 
 /* South, west, north, east */
 stock round_method:move_round[4][2] = { {round_floor, round_ceil}, {round_ceil, round_ceil}, {round_ceil, round_floor}, {round_floor, round_floor} }; //Used round player's position in the correct directions
@@ -147,16 +148,56 @@ public Init( ... )
 {
 	EntityGetPosition(_x_, _y_, _z_);
 	obj = object:ObjectCreate( movement_animation[0], SPRITE,  fround(_x_), fround(_y_), 1, 0, 0, WHITE);
+	EntityCreate("menu", "menu", 1, 1, 1, GLOBAL_MAP);
+		
+
 }
 
 main()
 {
 	DebugText("Position: %q %q", _x_, _y_);
 	
-	PlayerMove();
-	CheckCollisions()
-	UpdateSprite();
+	
+
+
+	if ( player_mode == 1 )
+	{
+		if ( InputButton(6) ==1 )
+			player_mode = !player_mode;
+		PlayerMove();
+		CheckCollisions();
+		UpdateSprite();
+	}
+	else
+	{
+		Menu();
+	}
 }
+
+Menu()
+{
+	static menuFunction[10] = "Main";
+	static menuMode = 0;
+
+	
+	menuMode = EntityPublicFunction("menu", menuFunction, "" );
+
+	if ( menuMode == 1 ) // return to game 
+		player_mode = 1; 
+	else if (menuMode == 2) // return to main menu
+	{
+		menuFunction = "Main"
+	}
+	else if (menuMode == 3) // return to main menu
+	{
+		menuFunction = "Travel"
+	}
+	else if (menuMode == 4) // return to main menu
+	{
+		menuFunction = "Clues"
+	}
+}
+
 
 UpdateSprite()
 {

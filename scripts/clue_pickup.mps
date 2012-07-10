@@ -50,7 +50,11 @@ main()
 public PickUp()
 {
 	if ( childrenEntity[0] )
+	{
 		EntityCreate(childrenEntity, childrenEntity, 1, 1, 1, GLOBAL_MAP, 64, "");
+		EntityPublicFunction(childrenEntity, "pickUp", "" );
+	}
+	
 	EntityDelete();
 }
 
