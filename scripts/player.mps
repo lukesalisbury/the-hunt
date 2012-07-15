@@ -13,10 +13,10 @@
 
 new movement_animation[4][32] = { "src_professor.png:front", "src_professor.png:right", "src_professor.png:back", "src_professor.png:left" };
 new standing_animation[4][32] = { "src_professor.png:front_0", "src_professor.png:right_0", "src_professor.png:back_0", "src_professor.png:left_0" };
-new Fixed:_x_, Fixed:_y_, Fixed:_z_, Fixed:_angle_;
-new object:obj = object:-1;
+public Fixed:_x_, Fixed:_y_, Fixed:_z_, Fixed:_angle_;
+public object:obj = object:-1;
 new _flipx_, _flipy_;
-new Fixed:_speed_ = 1.0;
+public Fixed:_speed_ = 1.0;
 new player_direction = 0;
 new checks[8][3];
 
@@ -149,17 +149,18 @@ public Init( ... )
 	EntityGetPosition(_x_, _y_, _z_);
 	obj = object:ObjectCreate( movement_animation[0], SPRITE,  fround(_x_), fround(_y_), 1, 0, 0, WHITE);
 	EntityCreate("menu", "menu", 1, 1, 1, GLOBAL_MAP);
-		
+	EntityCreate("transition", "transition", 1, 1, 1, GLOBAL_MAP);
+
+}
+
+
+public UpdatePosition()
+{
 
 }
 
 main()
 {
-	DebugText("Position: %q %q", _x_, _y_);
-	
-	
-
-
 	if ( player_mode == 1 )
 	{
 		if ( InputButton(6) ==1 )

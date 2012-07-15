@@ -13,7 +13,7 @@ public Init( ... )
 	EntityGetPosition(_x_, _y_, _z_);
 	obj = object:EntityGetNumber("object-id");
 
-	//
+	
 	EntityGetSetting(SELF,"clue-item", childrenEntity);
 	
 	

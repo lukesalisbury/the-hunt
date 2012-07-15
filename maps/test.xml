@@ -29,6 +29,7 @@
 	<setting key="entity" value="clue_pickup.mps" type="hidden"/>
 	<setting key="global" value="false" type="hidden"/>
 	<setting key="mirror" value="false" type="hidden"/>
+	<setting key="clue-item" value="clue_item" type="entity|clue_"/>
 </object>
 <object value="lbc_cabinets.png:shelf2" type="sprite" >
 	<position x="216" y="88" w="32" h="72" z="1" r="0" f="1"/>
