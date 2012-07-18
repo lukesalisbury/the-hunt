@@ -177,7 +177,7 @@ main()
 
 Menu()
 {
-	static menuFunction[10] = "Main";
+	static menuFunction[10] = "Index";
 	static menuMode = 0;
 
 	
@@ -187,7 +187,7 @@ Menu()
 		player_mode = 1; 
 	else if (menuMode == 2) // return to main menu
 	{
-		menuFunction = "Main"
+		menuFunction = "Index"
 	}
 	else if (menuMode == 3) // return to main menu
 	{

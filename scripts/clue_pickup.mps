@@ -14,9 +14,11 @@ public Init( ... )
 	obj = object:EntityGetNumber("object-id");
 
 	
-	EntityGetSetting(SELF,"clue-item", childrenEntity);
-	
-	
+	EntityGetSetting("clue-item", childrenEntity);
+	new q = StringFind( childrenEntity, "." );
+	if (q > 2 )
+		childrenEntity{q} = 0;
+
 	// Get Hotspot info
 	new dx = fround(_x_);
 	new dy = fround(_y_);
@@ -39,7 +41,7 @@ public Close()
 main()
 {
 
-	
+	DebugText("Item: %s",childrenEntity);
 	CollisionSet(SELF, 0, TYPE_CLUE, hotSpotX, hotSpotY, 16, 16 );
 	CollisionSet(SELF, 1, TYPE_CLUEALERT, hotSpotX - 64, hotSpotY - 64, 128, 128  );
 

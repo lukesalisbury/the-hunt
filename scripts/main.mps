@@ -2,6 +2,7 @@ forward public ShowMsg( str[] );
 
 new gstate = 1;
 new msgStr[64];
+new msgTimer; 
 new screenWidth, screenHeight;
 
 public Init( ... )
@@ -19,6 +20,9 @@ main()
 		new msgLen = StringLength(msgStr)*4;
 		GraphicsDraw("", RECTANGLE, screenWidth - msgLen, screenHeight - 8, 5, (msgLen*2) + 4, 20,RED);
 		GraphicsDraw(msgStr, TEXT,  screenWidth - msgLen +2, screenHeight - 6, 5, 0,0,WHITE);
+		if ( msgTimer <= 0 )
+			msgStr[0] = 0;
+		msgTimer -= GameFrame();
 	}
 }
 
@@ -26,6 +30,6 @@ main()
 public ShowMsg( str[] )
 {
 	StringCopy(msgStr,str);
-
+	msgTimer = 5000;
 }
 

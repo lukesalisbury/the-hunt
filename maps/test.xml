@@ -14,7 +14,7 @@
 <object value="src_professor.png:front_0" type="sprite" >
 	<position x="197" y="223" w="64" h="64" z="1" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
-	<setting key="id" value="*" type="hidden"/>
+	<setting key="id" value="tom" type="hidden"/>
 	<entity value="player" />
 	<setting key="entity" value="player.mps" type="hidden"/>
 	<setting key="global" value="true" type="hidden"/>
@@ -22,17 +22,25 @@
 	<setting key="sadf" value="" type=""/>
 </object>
 <object value="lbc_cabinets.png:shelf2" type="sprite" >
-	<position x="216" y="184" w="32" h="72" z="1" r="0" f="0"/>
+	<position x="150" y="175" w="32" h="72" z="1" r="0" f="0"/>
+	<color red="255" blue="255" green="255" alpha="255" />
+	<setting key="id" value="*" type="hidden"/>
+	<setting key="xfsdfa" value="sadfsad" type=""/>
+	<setting key="a" value="v" type=""/>
+	<entity value="clue_pickup" />
+	<setting key="entity" value="clue_pickup.mps" type="hidden"/>
+	<setting key="mirror" value="false" type="hidden"/>
+	<setting key="global" value="false" type="hidden"/>
+	<setting key="clue-item" value="item_test_clue.mps" type="entity|clue.mps"/>
+</object>
+<object value="lbc_cabinets.png:shelf2" type="sprite" >
+	<position x="216" y="88" w="32" h="72" z="1" r="0" f="1"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 	<setting key="id" value="*" type="hidden"/>
 	<entity value="clue_pickup" />
 	<setting key="entity" value="clue_pickup.mps" type="hidden"/>
 	<setting key="global" value="false" type="hidden"/>
-	<setting key="mirror" value="false" type="hidden"/>
-	<setting key="clue-item" value="clue_item" type="entity|clue_"/>
-</object>
-<object value="lbc_cabinets.png:shelf2" type="sprite" >
-	<position x="216" y="88" w="32" h="72" z="1" r="0" f="1"/>
-	<color red="255" blue="255" green="255" alpha="255" />
+	<setting key="mirror" value="true" type="hidden"/>
+	<setting key="clue-item" value="item_test2_clue.mps" type="entity|clue.mps"/>
 </object>
 </map>
