@@ -1,3 +1,4 @@
+#include <helper>
 enum CLUE_DETAIL {
 	id[64],
 	name[64]
@@ -12,8 +13,30 @@ static clueChoosen = 0;
 static clueCount = -1;
 static clues[256][CLUE_DETAIL];
 
-main() {}
+static menuWait = 0;
 
+main()
+{
+}
+
+CheckButton()
+{
+	if ( menuWait > 0 )
+	{
+		if ( InputButton(6) ==1 )
+			return true;	
+	}
+	else
+	{
+		menuWait -= GameFrame();
+	}
+	return false;
+}
+
+AddWait(time)
+{
+	menuWait = time;
+}
 ScanClues()
 {
 	if ( clueCount != -1 )
@@ -46,16 +69,17 @@ CombineClues()
 	new c2  = menuSelect - 1;
 	new an = EntityPublicFunction(clues[c2][id], "checkCombination", "s", clues[c1][id] );
 
+	if ( an )
+		clueChoosen = 0;
 
-
-
+	AddWait(40000);
 }
 
 
 
 public Clues()
 {
-	if ( InputButton(6) ==1 ) // Enter pressed
+	if ( CheckButton() ) // Enter pressed
 	{
 		if ( menuSelect == 0 )
 			return 2;
@@ -77,7 +101,6 @@ public Clues()
 	{
 		for ( new n = 0; n< clueCount; n++ )
 		{
-			
 			GraphicsDraw(clues[n][id], TEXT, 24,44+(20*n), 6, 0,0, menuSelect == n+1 ? 0xFF3333FF : 0xFFFFFFFF);
 
 			if ( clueChoosen == n + 1)

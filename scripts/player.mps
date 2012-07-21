@@ -150,7 +150,7 @@ public Init( ... )
 	obj = object:ObjectCreate( movement_animation[0], SPRITE,  fround(_x_), fround(_y_), 1, 0, 0, WHITE);
 	EntityCreate("menu", "menu", 1, 1, 1, GLOBAL_MAP);
 	EntityCreate("transition", "transition", 1, 1, 1, GLOBAL_MAP);
-
+	EntityCreate("hunter", "jerry", 1, 1, 1, GLOBAL_MAP);
 }
 
 
@@ -163,6 +163,7 @@ main()
 {
 	if ( player_mode == 1 )
 	{
+		GameState(1);
 		if ( InputButton(6) ==1 )
 			player_mode = !player_mode;
 		PlayerMove();
@@ -171,6 +172,7 @@ main()
 	}
 	else
 	{
+		GameState(0);
 		Menu();
 	}
 }
