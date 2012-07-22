@@ -21,6 +21,7 @@ new player_direction = 0;
 new checks[8][3];
 
 new player_mode = 1;
+new player_alive = true;
 
 /* South, west, north, east */
 stock round_method:move_round[4][2] = { {round_floor, round_ceil}, {round_ceil, round_ceil}, {round_ceil, round_floor}, {round_floor, round_floor} }; //Used round player's position in the correct directions
@@ -159,8 +160,21 @@ public UpdatePosition()
 
 }
 
+forward public KillByAgent();
+public KillByAgent()
+{
+	player_alive = false;
+}
+
+
 main()
 {
+	if ( !player_alive )
+	{
+		GraphicsDraw( "You Failed", TEXT, 200, 300, 5, 0,0, WHITE );
+		return;	
+	}
+
 	if ( player_mode == 1 )
 	{
 		GameState(1);
