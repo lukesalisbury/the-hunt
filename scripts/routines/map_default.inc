@@ -11,7 +11,7 @@
  *     2012/07/23 [luke]: new file.
  ***********************************************/
 
-public entry_x = 0;
+public entry_x = 42;
 public entry_y = 0;
  
 

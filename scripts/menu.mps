@@ -1,3 +1,18 @@
+/***********************************************
+ * Copyright © Luke Salisbury
+ *
+ * You are free to share, to copy, distribute and transmit this work
+ * You are free to adapt this work
+ * Under the following conditions:
+ *  You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work). 
+ *  You may not use this work for commercial purposes.
+ * Full terms of use: http://creativecommons.org/licenses/by-nc/3.0/
+ * Changes:
+ *     2012/07/23 [luke]: new file.
+ ***********************************************/
+
+
+
 #include <helper>
 enum CLUE_DETAIL {
 	id[64],
@@ -72,7 +87,7 @@ CombineClues()
 	if ( an )
 		clueChoosen = 0;
 
-	AddWait(40000);
+	AddWait(10);
 }
 
 
@@ -112,8 +127,9 @@ public Clues()
 		}
 
 	}
-	//GraphicsDraw(enityt, TEXT, 24,24+(20*i), 6, 0,0, menuSelect == i ? 0xFF3333FF : 0xFFFFFFFF);
-	
+
+
+	/* Check for Up/down input then use the remainder to loop */
 	if ( InputButton(7) == 1 )
 		menuSelect--;
 	else if ( InputButton(8) == 1 )
@@ -125,51 +141,78 @@ public Clues()
 	return 0;
 }
 
+/* Travel Menu */
 
-public Travel()
+#define LOCATIONS 20
+new available_location[LOCATIONS][64];
+new locations_count = 0;
+
+/*
+scanLocations()
 {
-	new files[20][64];
+	if ( section_scanned )
+		return;
+
+	new files[LOCATIONS][64];
 	FileGetList(files, "sections");
-	new fileCount = 0;
-	for ( ; fileCount < 20; fileCount++ )
+
+	for ( new c = 0; c < LOCATIONS; c++ )
 	{
-		if ( files[fileCount][0] )
+		if ( files[c][0] ) //Check if the string exists
 		{
-			new w = StringFind( files[fileCount], "." );
+			// remove the .txt from the file name.
+			new w = StringFind( files[c], "." ); 
 			if (w > 2 )
-				files[fileCount][w] = 0;
+				files[c][w] = 0;
+
+			StringCopy( available_location[locations_count][LNAME], files[c])
 		}
 		else 
 		{
+			// Exit for loop
 			break;
 		}	
 	}	
+}
+*/
 
+public unlockLocation( location[64] )
+{
+	if ( locations_count < LOCATIONS)
+	{
+		StringCopy( available_location[locations_count], location);
+		locations_count++;
+	}
+}
 
+public Travel()
+{
 	if ( InputButton(6) ==1 ) // Enter pressed
 	{
 		if ( menuSelect == 0 )
 			return 2;
 		else if ( menuSelect > 0 )
 		{
-			//files[menuSelect-1]
-			
-			EntityPublicFunction("transition", "SetTarget", "sssnn", "tom", "", files[menuSelect-1], 0,0);
+			EntityPublicFunction("transition", "SetTarget", "sssnn", "tom", "", available_location[menuSelect-1], 0,0);
+			EntityPublicFunction("jerry", "newLocation", "s",  available_location[menuSelect-1]);
 			return 1;
 		}
 
 	}
 
-	GraphicsDraw("", RECTANGLE, 16,16, 6, 288,320, 0x00000099);
+	GraphicsDraw("", RECTANGLE, 16,16, 6, 288,44 + (locations_count*20), 0x00000099);
 	GraphicsDraw("Return", TEXT, 24,24, 6, 0,0, menuSelect == 0 ? 0xFF3333FF : 0xFFFFFFFF);
 
-	for ( new n = 0; n < 20; n++ )
+	for ( new n = 0; n < locations_count; n++ )
 	{
-		if ( files[n][0] )
+		if ( available_location[n][0] )
 		{
-			GraphicsDraw(files[n], TEXT, 24,44+(20*n), 6, 0,0, menuSelect == n+1 ? 0xFF3333FF : 0xFFFFFFFF);
+			GraphicsDraw(available_location[n], TEXT, 24,44+(20*n), 6, 0,0, menuSelect == n+1 ? 0xFF3333FF : 0xFFFFFFFF);
 		}	
-	}	
+	}
+
+
+	/* Check for Up/down input then use the remainder to loop */
 	if ( InputButton(7) == 1 )
 		menuSelect--;
 	else if ( InputButton(8) == 1 )
@@ -180,6 +223,8 @@ public Travel()
 
 	return 0;
 }
+
+/* Main Menu */
 
 public Index()
 {
@@ -204,6 +249,8 @@ public Index()
 	GraphicsDraw("Clues", TEXT, 24,44, 6, 0,0, menuSelect == 1 ? 0xFF3333FF : 0xFFFFFFFF);
 	GraphicsDraw("Continue", TEXT, 24,64, 6, 0,0, menuSelect == 2 ? 0xFF3333FF : 0xFFFFFFFF);
 	
+
+	/* Check for Up/down input then use the remainder to loop */
 	if ( InputButton(7) == 1 )
 		menuSelect--;
 	else if ( InputButton(8) == 1 )
