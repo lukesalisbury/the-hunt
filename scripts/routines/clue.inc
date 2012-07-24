@@ -1,3 +1,19 @@
+/***********************************************
+ * Copyright © Luke Salisbury
+ *
+ * This work is release under the GNU GENERAL PUBLIC LICENSE Version 3
+ * For Full Terms visit http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * --- OR ---
+ *
+ * You are free to share, to copy, distribute and transmit this work
+ * You are free to adapt this work
+ * Under the following conditions:
+ *  You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work). 
+ *  You may not use this work for commercial purposes.
+ * Full terms of use: http://creativecommons.org/licenses/by-nc/3.0/
+ ***********************************************/
+
 forward public pickUp();
 forward public displayDescription(x,y);
 forward public checkCombination( match[64] );
@@ -5,7 +21,7 @@ enum combineOption
 {
 	matchingClue[64],
 	newClue[64],
-	locationID
+	location[64]
 }
 
 new name[64];
@@ -15,19 +31,22 @@ new combination_count = 0;
 new id = -1;
 
 
-SetCombination( clueName[], clue[], location )
+SetCombination( clueName[], clue[], locationName[] )
 {
 	if ( combination_count < 63 )
 	{
 		StringCopy(combinations[combination_count][matchingClue], clueName);
 		StringCopy(combinations[combination_count][newClue], clue);
-		combinations[combination_count][locationID] = location;
+		StringCopy(combinations[combination_count][location], locationName);
 		combination_count++;
 	}
 }
 
 
-
+public getName( str[64] )
+{
+	StringCopy( str, name );
+}
 
 public pickUp()
 {
@@ -48,9 +67,16 @@ public checkCombination( match[64] )
 			if ( StringEqual( match, combinations[i][matchingClue] ) )
 			{
 				if ( combinations[i][newClue][0] ) 
+				{
 					EntityPublicFunction("main", "ShowMsg", "s", "New Clue Found" );
-				else if ( combinations[i][locationID] ) 
+					EntityCreate(combinations[i][newClue], combinations[i][newClue], 1, 1, 1, GLOBAL_MAP);
+				}
+				else if ( combinations[i][location][0] ) 
+				{
 					EntityPublicFunction("main", "ShowMsg", "s", "New Location Discovered" );
+					EntityPublicFunction("menu", "unlockLocation", "snn", combinations[i][location], 0, 0 );
+					//EntityCreate(combinations[i][newClue], combinations[i][newClue], 1, 1, 1, GLOBAL_MAP);
+				}				
 				return true;
 			}
 		}

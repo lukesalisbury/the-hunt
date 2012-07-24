@@ -1,6 +1,11 @@
 /***********************************************
  * Copyright © Luke Salisbury
  *
+ * This work is release under the GNU GENERAL PUBLIC LICENSE Version 3
+ * For Full Terms visit http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * --- OR ---
+ *
  * You are free to share, to copy, distribute and transmit this work
  * You are free to adapt this work
  * Under the following conditions:
@@ -36,7 +41,7 @@ main()
 
 CheckButton()
 {
-	if ( menuWait > 0 )
+	if ( menuWait <= 0 )
 	{
 		if ( InputButton(6) ==1 )
 			return true;	
@@ -52,6 +57,7 @@ AddWait(time)
 {
 	menuWait = time;
 }
+
 ScanClues()
 {
 	if ( clueCount != -1 )
@@ -69,8 +75,8 @@ ScanClues()
 			q = StringFind( enityt, "item_" );
 			if ( q == 0 )
 			{
-				
-				StringCopy( clues[clueCount][id], enityt );
+				EntityPublicFunction( "enityt", "getName", "s", clues[clueCount][id] );
+				//StringCopy( clues[clueCount][id], enityt );
 				clueCount++;
 			}
 	
@@ -144,43 +150,22 @@ public Clues()
 /* Travel Menu */
 
 #define LOCATIONS 20
-new available_location[LOCATIONS][64];
+enum LOCATIONDETAIL {
+	LNAME[64],
+	LX,
+	LY
+}
+
+new available_location[LOCATIONS][LOCATIONDETAIL];
 new locations_count = 0;
 
-/*
-scanLocations()
-{
-	if ( section_scanned )
-		return;
-
-	new files[LOCATIONS][64];
-	FileGetList(files, "sections");
-
-	for ( new c = 0; c < LOCATIONS; c++ )
-	{
-		if ( files[c][0] ) //Check if the string exists
-		{
-			// remove the .txt from the file name.
-			new w = StringFind( files[c], "." ); 
-			if (w > 2 )
-				files[c][w] = 0;
-
-			StringCopy( available_location[locations_count][LNAME], files[c])
-		}
-		else 
-		{
-			// Exit for loop
-			break;
-		}	
-	}	
-}
-*/
-
-public unlockLocation( location[64] )
+public unlockLocation( location[64], gx, gy )
 {
 	if ( locations_count < LOCATIONS)
 	{
-		StringCopy( available_location[locations_count], location);
+		StringCopy( available_location[locations_count][LNAME], location);
+		available_location[locations_count][LX] = gx;
+		available_location[locations_count][LY] = gy;
 		locations_count++;
 	}
 }
@@ -193,8 +178,9 @@ public Travel()
 			return 2;
 		else if ( menuSelect > 0 )
 		{
-			EntityPublicFunction("transition", "SetTarget", "sssnn", "tom", "", available_location[menuSelect-1], 0,0);
-			EntityPublicFunction("jerry", "newLocation", "s",  available_location[menuSelect-1]);
+			new i = menuSelect -1;
+			EntityPublicFunction("transition", "SetTarget", "sssnn", "tom", "", available_location[i], 0,0);
+			EntityPublicFunction("jerry", "newLocation", "snn",  available_location[i][LNAME],  available_location[i][LX],  available_location[i][LY]);
 			return 1;
 		}
 
@@ -205,9 +191,9 @@ public Travel()
 
 	for ( new n = 0; n < locations_count; n++ )
 	{
-		if ( available_location[n][0] )
+		if ( available_location[n][LNAME][0] )
 		{
-			GraphicsDraw(available_location[n], TEXT, 24,44+(20*n), 6, 0,0, menuSelect == n+1 ? 0xFF3333FF : 0xFFFFFFFF);
+			GraphicsDraw(available_location[n][LNAME], TEXT, 24,44+(20*n), 6, 0,0, menuSelect == n+1 ? 0xFF3333FF : 0xFFFFFFFF);
 		}	
 	}
 
