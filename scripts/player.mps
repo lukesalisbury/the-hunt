@@ -1,6 +1,11 @@
 /***********************************************
  * Copyright © Luke Salisbury
  *
+ * This work is release under the GNU GENERAL PUBLIC LICENSE Version 3
+ * For Full Terms visit http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * --- OR ---
+ *
  * You are free to share, to copy, distribute and transmit this work
  * You are free to adapt this work
  * Under the following conditions:
@@ -11,17 +16,27 @@
  *     2012/07/05 [luke]: new file. Basic Player movement and Clue detection
  ***********************************************/
 
+forward public KillByAgent();
+forward public RefreshPosition();
+
 new movement_animation[4][32] = { "src_professor.png:front", "src_professor.png:right", "src_professor.png:back", "src_professor.png:left" };
 new standing_animation[4][32] = { "src_professor.png:front_0", "src_professor.png:right_0", "src_professor.png:back_0", "src_professor.png:left_0" };
+
 public Fixed:_x_, Fixed:_y_, Fixed:_z_, Fixed:_angle_;
 public object:obj = object:-1;
-new _flipx_, _flipy_;
 public Fixed:_speed_ = 1.0;
+new _flipx_, _flipy_;
 new player_direction = 0;
 new checks[8][3];
 
 new player_mode = 1;
 new player_alive = true;
+new death_timer = 0;
+
+new section_name[64];
+new section_x, section_y;
+new section_move[4];
+
 
 /* South, west, north, east */
 stock round_method:move_round[4][2] = { {round_floor, round_ceil}, {round_ceil, round_ceil}, {round_ceil, round_floor}, {round_floor, round_floor} }; //Used round player's position in the correct directions
@@ -95,9 +110,22 @@ stock MoveCheck(Fixed:angle, maxmask, Fixed:movex, Fixed:movey)
 	new maskvl = MaskGetValue( checks[l][0], checks[l][1]);
 	new maskvr = MaskGetValue( checks[r][0], checks[r][1]);
 
-	if( maskv > 255 || maskv < 0 )
+	if(  maskv < 0 ) // 
 	{
 		return false;
+	}
+	else if ( maskv >255 )
+	{
+
+		if ( section_x != -1 && section_y != -1)
+		{
+			return section_move[player_direction];
+		}
+		else
+		{
+			return false;
+		}
+
 	}
 	else if ( maskv > maxmask || maskvl > maxmask || maskvr > maxmask  )
 	{
@@ -136,49 +164,94 @@ stock UpdatePoints( )
 	checks[SOUTHWEST][XAXIS] = dx + 16 + 2;
 	checks[SOUTHWEST][YAXIS] = dy + 64 - 2;
 
+	/* Testing Code 
 	for ( new c = 0; c < 8; c++ )
 	{
 		GraphicsDraw("", RECTANGLE, checks[c][XAXIS], checks[c][YAXIS], 5, 2,2, 0xFF00FFAA);
 	}
-	
+	*/
 }
 
 /*---------------*/
 
 public Init( ... )
 {
-	EntityGetPosition(_x_, _y_, _z_);
+	UpdatePosition();
 	obj = object:ObjectCreate( movement_animation[0], SPRITE,  fround(_x_), fround(_y_), 1, 0, 0, WHITE);
-	EntityCreate("menu", "menu", 1, 1, 1, GLOBAL_MAP);
-	EntityCreate("transition", "transition", 1, 1, 1, GLOBAL_MAP);
-	EntityCreate("hunter", "jerry", 1, 1, 1, GLOBAL_MAP);
+
+
+	/* Create other Entities */
+	EntityCreate("menu", MENUSENTITY, 1, 1, 1, GLOBAL_MAP);
+	EntityCreate("transition", TRANSENTITY, 1, 1, 1, GLOBAL_MAP);
+	EntityCreate("agent", AGENTENTITY, 1, 1, 1, GLOBAL_MAP);
+
+
+	EntityPublicFunction(AGENTENTITY, "newLocation", "snn",  "Hotel", 0, 0 );
+	EntityPublicFunction(MENUSENTITY, "unlockLocation", "snn", "Hotel", 0, 0 );
+	EntityPublicFunction(MENUSENTITY, "unlockLocation", "snn", "Test", 0, 0 );
+	
+
+	/* Testing */
+	EntityCreate("item_test_clue", "item_test_clue", 1, 1, 1, GLOBAL_MAP);
+	EntityPublicFunction("item_test_clue", "pickedUp", "" );
+	EntityCreate("item_test2_clue", "item_test2_clue", 1, 1, 1, GLOBAL_MAP);
+	EntityPublicFunction("item_test2_clue", "pickedUp", "" );
 }
 
 
-public UpdatePosition()
+public Close( )
 {
-
+	EntityDelete(MENUSENTITY);
+	EntityDelete(TRANSENTITY);
+	EntityDelete(AGENTENTITY);
 }
 
-forward public KillByAgent();
+public RefreshPosition() // Entity moved by another entity
+{
+	//new standing_animation[4][32] = { "src_professor.png:front_0", "src_professor.png:right_0", "src_professor.png:back_0", "src_professor.png:left_0" };
+
+	section_name[0] = 0; // Engine Bug???
+	SectionGet(section_name, section_x, section_y);
+	
+
+	if ( section_x != -1 && section_y != -1)
+	{
+		section_move[0] = SectionValid(SELF, section_x, section_y+1);
+		section_move[1] = SectionValid(SELF, section_x+1, section_y);
+		section_move[2] = SectionValid(SELF, section_x, section_y-1);
+		section_move[3] = SectionValid(SELF, section_x-1, section_y);
+	}
+
+	
+}
+
+public UpdatePosition() // Entity moved by engine
+{
+	RefreshPosition();
+	EntityGetPosition(_x_, _y_, _z_);
+}
+
 public KillByAgent()
 {
 	player_alive = false;
 }
 
 
+
 main()
 {
+	DebugText("Section: %s %dx%d", section_name, section_x, section_y);
+	DebugText("%d %d %d %d", section_move[0], section_move[1], section_move[2],section_move[3]);
 	if ( !player_alive )
 	{
-		GraphicsDraw( "You Failed", TEXT, 200, 300, 5, 0,0, WHITE );
+		handleGameOver();
 		return;	
 	}
 
 	if ( player_mode == 1 )
 	{
 		GameState(1);
-		if ( InputButton(6) ==1 )
+		if ( InputButton(6) == 1 )
 			player_mode = !player_mode;
 		PlayerMove();
 		CheckCollisions();
@@ -213,6 +286,51 @@ Menu()
 	{
 		menuFunction = "Clues"
 	}
+}
+
+handleGameOver()
+{
+	new alpha;
+	new background;
+	new text;
+	if ( !death_timer ) // Replace Animation
+	{
+		ObjectReplace( obj, "src_professor_hurt.png:front", SPRITE );
+	}
+	
+	
+	death_timer += GameFrame() * 100;
+	alpha = death_timer / 1000;
+	if ( alpha < 255 ) // Fade Screen
+	{
+		background = ( 0xFF << 24 | (255 - alpha) << 16 | (255 - alpha) << 8 | 0xFF);
+		text = ( alpha << 24 | alpha << 16 | alpha << 8 | alpha);
+		
+
+		LayerColour(0, background);
+		LayerColour(1, background);
+		LayerColour(2, background);
+		LayerColour(3, background);
+		LayerColour(4, background);
+		LayerColour(5, background);
+		GraphicsDraw( "You Failed", TEXT, 200, 300, 6, 0,0, text );
+	}
+	else
+	{
+		ObjectReplace( obj, "src_professor_hurt.png:front_5", SPRITE ); // Change to a static sprite
+
+		GraphicsDraw( "You Failed", TEXT, 200, 280, 6, 0,0, WHITE );
+		
+		GraphicsDraw( "[enter] return to title screen", TEXT, 200, 300, 6, 0,0, WHITE );
+
+
+		if ( InputButton(6) == 1)
+		{
+			MapChange(MapID("titlescreen"),0,0);
+		}
+
+	}
+
 }
 
 

@@ -53,27 +53,42 @@ main()
 
 drawMessage( msg[MESSAGE] )
 {
+	new background = 0x000000DD;
+	new text = WHITE;
 	new width = 160;
-	GraphicsDraw("", RECTANGLE, screenWidth - width - 10, screenHeight - msg[MY], 5, width, 26, 0x000000DD );
-	GraphicsDraw(msg[TEXT], TEXT,  screenWidth - width - 8, screenHeight - msg[MY] + 2, 5, 0,0,WHITE);
+
+	if ( msg[MTIMER] < 1000 )
+	{
+		new a = msg[MTIMER] / 4;
+
+		background = 0x00000000 | (a>0 ? a :0);
+		text = 0xFFFFFF00 | (a>0 ? a :0);
+	}
+
+	GraphicsDraw("", RECTANGLE, screenWidth - width - 10, screenHeight - msg[MY], 5, width, 26, background );
+	GraphicsDraw(msg[TEXT], TEXT,  screenWidth - width - 8, screenHeight - msg[MY] + 2, 5, 0,0, text);
+
 	if ( msg[MTIMER] <= 0 )
 	{
 		msg[TEXT][0] = 0;
 		msgs--;
 	}
-	msg[MTIMER] -= GameFrame()
+	msg[MTIMER] -= GameFrame();
 }
 
 
 wrapText( text[255] )
 {
-	new c = 0;
+	new c = 20;
 	new l = StringLength(text);
-	while ( c < l )
+	if ( l >= 20 )
 	{
-		StringInsert( text, "\n", c);
-		l++;
-		c += 20;
+		while ( c < l )
+		{
+			StringInsert( text, "\n", c); // TODO replace with nicer formatting
+			l++;
+			c += 20;
+		}
 	}
 }
 

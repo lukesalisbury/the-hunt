@@ -1,6 +1,11 @@
 /***********************************************
  * Copyright © Luke Salisbury
  *
+ * This work is release under the GNU GENERAL PUBLIC LICENSE Version 3
+ * For Full Terms visit http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * --- OR ---
+ *
  * You are free to share, to copy, distribute and transmit this work
  * You are free to adapt this work
  * Under the following conditions:
@@ -13,5 +18,4 @@
 
 public entry_x = 42;
 public entry_y = 0;
- 
 

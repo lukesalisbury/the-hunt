@@ -1,5 +1,9 @@
-#tryinclude <map_default>
+public Init( ... )
+{
+	EntityDelete(PLAYRENTITY);	
+}
+
 main()
 {
-	/**/
+		/**/
 }

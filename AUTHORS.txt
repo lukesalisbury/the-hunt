@@ -1,0 +1,29 @@
+Code authors
+============
+
+This program was written by the following people:
+ - Luke Salisbury
+
+
+Asset attribution
+=================
+
+Assets were authored by the following people:
+
+Skyler Robert Colladay
+ - src_professor.png
+ - src_agent_shoot
+ - src_agent
+ - src_professor_hurt
+ - src_crypt
+ - src_book
+
+"Liberated Pixel Cup" 
+ - lbc_cabinets.png
+ - lbc_inside.png
+ - big_worm.png
+ - eyeball.png
+
+
+
+ - gb_castle.png

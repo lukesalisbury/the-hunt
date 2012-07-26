@@ -11,4 +11,12 @@
 	<position x="0" y="104" w="480" h="224" z="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 </object>
+<object value="Rectangle" type="rect" >
+	<position x="73" y="136" w="28" h="31" z="0" r="0" f="0"/>
+	<color red="255" blue="255" green="255" alpha="255" />
+	<setting key="id" value="*" type="hidden"/>
+	<entity value="entry_point" />
+	<setting key="entity" value="entry_point.mps" type="hidden"/>
+	<setting key="global" value="false" type="hidden"/>
+</object>
 </map>

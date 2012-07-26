@@ -1,0 +1,24 @@
+<map xmlns="http://mokoi.info/projects/mokoi">
+<settings>
+	<dimensions width="1" height="1" />
+	<color red="128" blue="128" green="128" mode="0" />
+</settings>
+<object value="__banner.png:static" type="sprite" >
+	<position x="136" y="234" w="400" h="80" z="0" r="0" f="0"/>
+	<color red="255" blue="255" green="255" alpha="255" />
+</object>
+<object value="Circle" type="circle" >
+	<position x="20" y="20" w="160" h="160" z="0" r="0" f="0"/>
+	<color red="255" blue="255" green="255" alpha="255" />
+</object>
+<object value="The Hunt" type="text" >
+	<position x="213" y="43" w="46" h="8" z="0" r="0" f="0"/>
+	<color red="0" blue="0" green="0" alpha="255" />
+	<setting key="number" value="-1" type="hidden"/>
+</object>
+<object value="Line" type="line" >
+	<position x="212" y="60" w="472" h="60" z="0" />
+	<color red="255" blue="255" green="255" alpha="255" />
+	<setting key="mirror" value="false" type="hidden"/>
+</object>
+</map>

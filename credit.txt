@@ -1,8 +1,0 @@
-Media for this project has been provide by:
-
-Skyler Robert Colladay    src_professor.png
-"Liberated Pixel Cup"     lbc_cabinets.png
-"Liberated Pixel Cup"     lbc_inside.png
-
-
-For "Liberated Pixel Cup" see http://lpc.opengameart.org/static/lpc-style-guide/authors.html#authors-chapter

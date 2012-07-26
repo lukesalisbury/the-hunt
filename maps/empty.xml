@@ -3,8 +3,14 @@
 	<dimensions width="1" height="1" />
 	<color red="64" blue="124" green="98" mode="0" />
 </settings>
-<object value="Rectangle" type="rect" >
-	<position x="110" y="92" w="224" h="126" z="0" r="0" f="0"/>
+<object value="Limbo" type="text" >
+	<position x="146" y="27" w="31" h="7" z="6" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
+	<setting key="number" value="-1" type="hidden"/>
+</object>
+<object value="An error has occured, please check error log" type="text" >
+	<position x="145" y="42" w="206" h="9" z="6" r="0" f="0"/>
+	<color red="255" blue="255" green="255" alpha="255" />
+	<setting key="number" value="-1" type="hidden"/>
 </object>
 </map>

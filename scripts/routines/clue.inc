@@ -15,13 +15,17 @@
  ***********************************************/
 
 forward public pickUp();
-forward public displayDescription(x,y);
+forward public displayDescription(x,y, color);
 forward public checkCombination( match[64] );
+forward public getName( str[64] );
+
 enum combineOption
 {
 	matchingClue[64],
 	newClue[64],
-	location[64]
+	location[64],
+	remove
+	
 }
 
 new name[64];
@@ -31,13 +35,14 @@ new combination_count = 0;
 new id = -1;
 
 
-SetCombination( clueName[], clue[], locationName[] )
+SetCombination( clueName[], clue[], locationName[], removeEntity = false )
 {
 	if ( combination_count < 63 )
 	{
 		StringCopy(combinations[combination_count][matchingClue], clueName);
 		StringCopy(combinations[combination_count][newClue], clue);
 		StringCopy(combinations[combination_count][location], locationName);
+		combinations[combination_count][remove] = removeEntity;
 		combination_count++;
 	}
 }
@@ -48,14 +53,14 @@ public getName( str[64] )
 	StringCopy( str, name );
 }
 
-public pickUp()
+public pickedUp()
 {
 	EntityPublicFunction("main", "ShowMsg", "s", description );
 }
 
-public displayDescription(x,y)
+public displayDescription(x,y, color)
 {
-
+	GraphicsDraw(description, TEXT, x,y, 6, 0,0, color);
 }
 
 public checkCombination( match[64] )
@@ -66,6 +71,7 @@ public checkCombination( match[64] )
 		{
 			if ( StringEqual( match, combinations[i][matchingClue] ) )
 			{
+
 				if ( combinations[i][newClue][0] ) 
 				{
 					EntityPublicFunction("main", "ShowMsg", "s", "New Clue Found" );
@@ -74,9 +80,15 @@ public checkCombination( match[64] )
 				else if ( combinations[i][location][0] ) 
 				{
 					EntityPublicFunction("main", "ShowMsg", "s", "New Location Discovered" );
-					EntityPublicFunction("menu", "unlockLocation", "snn", combinations[i][location], 0, 0 );
-					//EntityCreate(combinations[i][newClue], combinations[i][newClue], 1, 1, 1, GLOBAL_MAP);
-				}				
+					EntityPublicFunction(MENUSENTITY, "unlockLocation", "snn", combinations[i][location], 0, 0 );
+				}	
+				
+				if ( combinations[i][remove] )
+				{
+					EntityDelete(combinations[i][matchingClue]);
+					EntityDelete();
+				}
+
 				return true;
 			}
 		}
@@ -84,3 +96,11 @@ public checkCombination( match[64] )
 	EntityPublicFunction("main", "ShowMsg", "s", "No Match" );
 	return false;
 }
+
+
+
+main()
+{
+	
+}
+

@@ -1,81 +1,90 @@
 /***********************************************
  * Copyright © Luke Salisbury
  *
+ * This work is release under the GNU GENERAL PUBLIC LICENSE Version 3
+ * For Full Terms visit http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * --- OR ---
+ *
  * You are free to share, to copy, distribute and transmit this work
  * You are free to adapt this work
  * Under the following conditions:
  *  You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work). 
  *  You may not use this work for commercial purposes.
  * Full terms of use: http://creativecommons.org/licenses/by-nc/3.0/
- * Changes:
- *     2010/01/11 [luke]: new file.
  ***********************************************/
 
-#define FADEIN			1
+#define FADEIN		1
 #define FADESWITCH	2
 #define FADEOUT		3	
 #define FADEEND		4
 
-forward public SetTarget(nplayer[], ntargetentity[], nsection[], ngridx, ngridy)
 
+forward public SetTarget(nsection[], ngridx, ngridy)
 
 /* Target Varibles */
 new section_name[64];
-new target_entity[32];
-new player_entity[64];
 new section_x, section_y;
 
 new tstate;
 
 new acolor = 0xFFFFFFFF;
-new Fixed:seconds;
+new Fixed:timer;
 
-public Init(...) {}
+new error_map = 0;
+
+public Init(...) {
+	error_map = MapID("empty");
+}
 public Close() {}
 
 main()
 {
 	if ( tstate )
 	{
-		if ( tstate == FADEEND )
+		if ( tstate == FADEEND ) // End Animation
 		{
 			tstate = 0;
-			LayerColour(0, 0xffffffff);
-			LayerColour(1, 0xffffffff);
-			LayerColour(2, 0xffffffff);
-			LayerColour(3, 0xffffffff);
-			LayerColour(4, 0xffffffff);
-			LayerColour(5, 0xffffffff);
+			LayerColour(0, 0xFFFFFFFF);
+			LayerColour(1, 0xFFFFFFFF);
+			LayerColour(2, 0xFFFFFFFF);
+			LayerColour(3, 0xFFFFFFFF);
+			LayerColour(4, 0xFFFFFFFF);
+			LayerColour(5, 0xFFFFFFFF);
 			GameState(1);
 		}
-		else if ( tstate == FADEOUT || tstate == FADESWITCH)
+		else if ( tstate == FADEOUT)
 		{
-			if (  tstate == FADESWITCH )
-			{
-				EntityPublicVariableSet( "tom", "_x_", 10);
-				EntityPublicVariableSet( "tom", "_y_", 200);
-
-				tstate = FADEOUT;
-			}
 			Fade();
 		}
-		else
+		else if (  tstate == FADESWITCH )
+		{
+			// An entity on the map should update the entry point
+			new x = EntityPublicVariable("__map__", "entry_x" );
+			new y = EntityPublicVariable("__map__", "entry_y" );
+
+			EntityPublicVariableSet( PLAYRENTITY, "_x_", fixed(x));
+			EntityPublicVariableSet( PLAYRENTITY, "_y_", fixed(y));
+
+			EntityPublicFunction( PLAYRENTITY, "RefreshPosition", "" );
+
+			tstate = FADEOUT;
+			Fade();
+		}
+		else // FADEIN
 		{
 			Fade();
 		}
 	}
 }
 
-public SetTarget(nplayer[], ntargetentity[], nsection[], ngridx, ngridy)
+public SetTarget(nsection[], ngridx, ngridy)
 {
-	StringCopy(target_entity,ntargetentity);
-	StringCopy(player_entity,nplayer);
-	StringCopy(section_name,nsection);
+	StringCopy(section_name, nsection);
 	section_x = ngridx;
 	section_y = ngridy;
 
 	tstate = FADEIN;
-
 	return true;
 }
 
@@ -84,26 +93,33 @@ MoveToTarget()
 	if ( section_name[0] )
 	{
 		SectionSet(section_name, section_x, section_y);
+		//if ( !SectionValid(section_name, section_x, section_y) )
+		//{
+		//	GameLog( "Invalid Section '%s' '%dx%d'", section_name, section_x, section_y );
+		//	MapChange( error_map );
+		//}
 		section_name[0] = 0;
 		return true;
 	}
-	tstate = FADESWITCH;
 	return false;
 }
 
 Fade()
 {
-	new alpha;
+	new alpha = 255;
 
-	seconds += GameFrame2() * 400.0;
+	timer += GameFrame2() * 400.0;
 	
 	if ( tstate == FADEOUT )
-		alpha = 0 + fround(seconds);
-	else 
-		alpha = 255 - fround(seconds);
+		alpha = 0 + fround(timer);
+	else if ( tstate == FADEIN )
+		alpha = 255 - fround(timer);
 
-	if ( seconds >= 255.0 )
+	if ( timer >= 255.0 ) // Switch FADE mode
 	{
+		// For the last frame of FADEIN we move the entity
+		// so FADESWITCH can move toe entity to the right 
+		// x/y position.
 		if ( tstate == FADEIN )
 		{
 			if ( MoveToTarget() )
@@ -111,7 +127,7 @@ Fade()
 		}
 
 		tstate++;
-		seconds = 0.0;
+		timer = 0.0;
 	}
 	else
 	{
