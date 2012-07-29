@@ -1,7 +1,8 @@
-front_0	2	0	0	0	0	64	64
-front_1	2	0	0	64	0	64	64
-front_2	2	0	0	128	0	64	64
-front_3	2	0	0	192	0	64	64
-front_4	2	0	0	256	0	64	64
 front_5	2	0	0	320	0	64	64
+front_4	2	0	0	256	0	64	64
+front_3	2	0	0	192	0	64	64
+front_2	2	0	0	128	0	64	64
+front_1	2	0	0	64	0	64	64
+front_0	2	0	0	0	0	64	64
 front	0	0	0	ANIMATION	1000	front_0	front_1	front_2	front_3	front_4	front_5
+reverse	0	0	0	ANIMATION	200	front_5	front_4	front_3	front_2	front_1	front_0	front_0	front_0	front_0	front_0	front_0	front_0	front_0

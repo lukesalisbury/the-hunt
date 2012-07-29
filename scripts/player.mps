@@ -18,6 +18,7 @@
 
 forward public KillByAgent();
 forward public RefreshPosition();
+forward public ableMovement( a );
 
 new movement_animation[4][32] = { "src_professor.png:front", "src_professor.png:right", "src_professor.png:back", "src_professor.png:left" };
 new standing_animation[4][32] = { "src_professor.png:front_0", "src_professor.png:right_0", "src_professor.png:back_0", "src_professor.png:left_0" };
@@ -192,10 +193,12 @@ public Init( ... )
 	
 
 	/* Testing */
+	/*
 	EntityCreate("item_test_clue", "item_test_clue", 1, 1, 1, GLOBAL_MAP);
 	EntityPublicFunction("item_test_clue", "pickedUp", "" );
 	EntityCreate("item_test2_clue", "item_test2_clue", 1, 1, 1, GLOBAL_MAP);
 	EntityPublicFunction("item_test2_clue", "pickedUp", "" );
+	*/
 }
 
 
@@ -212,7 +215,6 @@ public RefreshPosition() // Entity moved by another entity
 
 	section_name[0] = 0; // Engine Bug???
 	SectionGet(section_name, section_x, section_y);
-	
 
 	if ( section_x != -1 && section_y != -1)
 	{
@@ -236,7 +238,10 @@ public KillByAgent()
 	player_alive = false;
 }
 
-
+public ableMovement( a )
+{
+	player_mode = 1 + a;
+}
 
 main()
 {
@@ -257,7 +262,7 @@ main()
 		CheckCollisions();
 		UpdateSprite();
 	}
-	else
+	else if ( player_mode == 0 )
 	{
 		GameState(0);
 		Menu();
@@ -272,8 +277,11 @@ Menu()
 	
 	menuMode = EntityPublicFunction("menu", menuFunction, "" );
 
-	if ( menuMode == 1 ) // return to game 
+	if ( menuMode == 1 ) // return to game
+	{
 		player_mode = 1; 
+		GameState(1);
+	}
 	else if (menuMode == 2) // return to main menu
 	{
 		menuFunction = "Index"

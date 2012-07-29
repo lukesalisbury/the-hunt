@@ -17,3 +17,9 @@ stock SetEntityTarget( nsection[], ngridx, ngridy )
 {
 	EntityPublicFunction(TRANSENTITY, "SetTarget", "snn", nsection, ngridx, ngridy );
 }
+
+
+stock AllowPlayerMovement( able )
+{
+	EntityPublicFunction(PLAYRENTITY, "ableMovement", "n",able );
+}

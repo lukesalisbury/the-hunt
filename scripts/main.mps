@@ -15,7 +15,7 @@
  ***********************************************/ 
  
 forward public ShowMsg( str[] ); 
- 
+forward public dialogbox(line);
 enum MESSAGE { 
 	TEXT[255], 
 	MX, 
@@ -25,14 +25,21 @@ enum MESSAGE {
 } 
  
 /* */ 
-new gstate = 1; 
+new screenWidth, screenHeight; 
+
 new msgStr[6][MESSAGE]; 
 new msgs = 0;  
-new screenWidth, screenHeight; 
- 
+
+new dialog_line = -1;
+new dialog_msg[1024];
+new dialog_show[1024];
+new dialog_char = 0;
+new dialog_timer = -1;
+new dialog_length = -1;
+
+
 public Init( ... ) 
 { 
-	gstate  = GameState(gstate); 
 	screenWidth = MiscGetWidth("__screen__"); 
 	screenHeight = MiscGetHeight("__screen__");
 	LanguageSet("00"); 
@@ -50,6 +57,7 @@ main()
 			drawMessage(msgStr[c]); 
 		} 
 	} 
+	dialog();
 } 
  
 drawMessage( msg[MESSAGE] ) 
@@ -109,3 +117,40 @@ public ShowMsg( str[] )
 	} 
 } 
  
+
+
+
+dialog()
+{
+	DebugText("dialog_msg: %d '%s'", dialog_line, dialog_msg);
+	if (dialog_line == -1)
+		return;
+	AllowPlayerMovement(false);
+	if ( dialog_msg[dialog_char] != 0 )
+	{
+		dialog_timer += GameFrame();
+		if ( dialog_timer > 500 )
+		{
+			dialog_show[dialog_char] = dialog_msg[dialog_char];
+			dialog_timer -= 500;
+			dialog_char++;
+		}
+	}
+	GraphicsDraw(dialog_show, TEXT, 84, 84, 6002, 0, 0, 0xFFFFFFFF);
+
+	if ( InputButton(6) == 1 ) //Exit Dialog
+	{
+		dialog_line = -1;
+		AllowPlayerMovement(true);
+	}
+}
+
+public dialogbox(line)
+{
+	dialog_line = line;
+	dialog_timer = 0;
+	dialog_length = 5000;
+	dialog_char = 0;
+	DialogGetString(dialog_line, dialog_msg);
+	//DialogPlayAudio(dialog_line);
+}
