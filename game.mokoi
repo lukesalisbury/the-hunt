@@ -20,4 +20,4 @@ display.fullscreen=false
 display.customsize=false
 audio.able=false
 save.access=false
-map.start=test
+map.start=hotel_toilet

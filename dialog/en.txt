@@ -1,1 +1,1 @@
-Hello
+HOTEL_TOILET_INTRO
