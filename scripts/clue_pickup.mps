@@ -59,6 +59,7 @@ public Close()
 
 main()
 {
+	DebugText("%s", childrenEntity);
 	CollisionSet(SELF, 0, TYPE_CLUE, hotSpotX, hotSpotY, 16, 16 );
 	CollisionSet(SELF, 1, TYPE_CLUEALERT, hotSpotX - 64, hotSpotY - 64, 128, 128  );
 }

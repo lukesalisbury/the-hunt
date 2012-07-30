@@ -22,3 +22,4 @@ audio.able=false
 save.access=false
 map.start=titlescreen
 gui.style=dialog { background-color: #000000FF; background-color2: #303030FF; background-style: vertical-gradient; border-style: normal;border-color: #FFFFFFFF; border-width: 1; color: #FFFFFFFF; } button:hover { border-color: #EEEEEEFF; } button { background-color: #000000FF; background-color2: #202020FF; background-style: vertical-gradient; border-style: normal;border-color: #FFFFFFFF; border-width: 1; color: #FFFFFFFF; }
+layer.static6=true

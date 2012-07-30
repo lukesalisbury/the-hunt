@@ -9,9 +9,10 @@
  * You are free to share, to copy, distribute and transmit this work
  * You are free to adapt this work
  * Under the following conditions:
- *  You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work). 
- *  You may not use this work for commercial purposes.
- * Full terms of use: http://creativecommons.org/licenses/by-nc/3.0/
+ * - You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work). 
+ * - You may not use this work for commercial purposes.
+ * - If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
+ * Full terms of use: http://creativecommons.org/licenses/by-nc-sa/3.0/
  ***********************************************/
 enum AgentLocation {
 	LNAME[64],
@@ -25,6 +26,7 @@ new timer = 0; //300000
 new attacking  = false;
 new attack_timer = 1000;
 new obj = -1;
+new screen = 0;
 
 new locations[64][AgentLocation];
 
@@ -38,6 +40,7 @@ public newLocation( name[64] )
 
 public Init( ... )
 {
+	screen = MiscGetWidth("__screen__")/2;
 	appendLocation("OnTheRoad");
 }
 
@@ -73,8 +76,8 @@ displayTimer(t)
 	new str[64];
 	new minutes = t / 60;
 	new seconds = t %60;
-	StringFormat(str, _,_, "%d:%2d Minutes",minutes, seconds);
-	GraphicsDraw(str, TEXT, 100, 300, 6, 0,0, 0xFF0000FF);
+	StringFormat(str, _,_, "%02d:%02d",minutes, seconds);
+	GraphicsDraw(str, TEXT, screen-20, 2, 6, 0,0, 0xFF0000FF);
 }
 
 handleAttack()
@@ -102,7 +105,7 @@ handleAttack()
 main()
 {
 	DebugText( "Agent Location: %s %d", locations[0][LNAME], locations[0][LTIMER]);
-	DebugText("Agent Entry Point %qx%q", EntityPublicVariable("__map__", "entry_x" ),EntityPublicVariable("__map__", "entry_y" ));
+	
 	if ( timer > 0 )
 	{
 		second_counter += GameFrame() * GameState();

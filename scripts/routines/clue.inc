@@ -15,10 +15,10 @@
  ***********************************************/ 
  
 forward public pickUp(); 
-forward public displayDescription(x,y, color); 
 forward public checkCombination( match[64] ); 
-forward public getName( str[64] ); 
- 
+forward public printName(x,y,z, color) 
+forward public exists();
+
 enum combineOption 
 { 
 	matchingClue[64], 
@@ -33,8 +33,8 @@ new description[100];
 new combinations[64][combineOption] 
 new combination_count = 0; 
 new id = -1; 
-new string_id = 0;
-new  show_on_pickup = false; 
+public string_id = 0;
+new show_on_pickup = false; 
  
 SetCombination( clueName[], clue[], locationName[], removeEntity = false ) 
 { 
@@ -47,11 +47,16 @@ SetCombination( clueName[], clue[], locationName[], removeEntity = false )
 		combination_count++; 
 	} 
 } 
+
+public exists()
+{
+	return 99;
+}
  
- 
-public getName( str[64] ) 
+public printName(x, y, z, color) 
 { 
-	StringCopy( str, name ); 
+	GraphicsDraw(name, TEXT, x,y, z, 0,0, color);
+	return StringLength(name);
 } 
  
 public pickedUp() 
@@ -59,10 +64,6 @@ public pickedUp()
 	EntityPublicFunction("main", "ShowMsg", "s", description ); 
 } 
  
-public displayDescription(x,y, color) 
-{ 
-	GraphicsDraw(description, TEXT, x,y, 6, 0,0, color); 
-} 
  
 public checkCombination( match[64] ) 
 { 

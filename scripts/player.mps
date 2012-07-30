@@ -9,11 +9,10 @@
  * You are free to share, to copy, distribute and transmit this work
  * You are free to adapt this work
  * Under the following conditions:
- *  You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work). 
- *  You may not use this work for commercial purposes.
- * Full terms of use: http://creativecommons.org/licenses/by-nc/3.0/
- * Changes:
- *     2012/07/05 [luke]: new file. Basic Player movement and Clue detection
+ * - You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work). 
+ * - You may not use this work for commercial purposes.
+ * - If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
+ * Full terms of use: http://creativecommons.org/licenses/by-nc-sa/3.0/
  ***********************************************/
 
 forward public KillByAgent();
@@ -38,6 +37,8 @@ new section_name[64];
 new section_x, section_y;
 new section_move[4];
 
+
+new object:hint = object:-1;
 
 /* South, west, north, east */
 stock round_method:move_round[4][2] = { {round_floor, round_ceil}, {round_ceil, round_ceil}, {round_ceil, round_floor}, {round_floor, round_floor} }; //Used round player's position in the correct directions
@@ -178,7 +179,11 @@ stock UpdatePoints( )
 public Init( ... )
 {
 	UpdatePosition();
-	obj = object:ObjectCreate( movement_animation[0], SPRITE,  fround(_x_), fround(_y_), 1, 0, 0, WHITE);
+	obj = object:ObjectCreate( standing_animation[0], SPRITE,  fround(_x_), fround(_y_), 2, 0, 0, WHITE);
+
+	hint = object:ObjectCreate( "hint.png:1", SPRITE, 8, 8, 6, 0, 0, WHITE);
+
+	ObjectToggle(hint,false);
 
 
 	/* Create other Entities */
@@ -211,8 +216,6 @@ public Close( )
 
 public RefreshPosition() // Entity moved by another entity
 {
-	//new standing_animation[4][32] = { "src_professor.png:front_0", "src_professor.png:right_0", "src_professor.png:back_0", "src_professor.png:left_0" };
-
 	section_name[0] = 0; // Engine Bug???
 	SectionGet(section_name, section_x, section_y);
 
@@ -231,6 +234,8 @@ public UpdatePosition() // Entity moved by engine
 {
 	RefreshPosition();
 	EntityGetPosition(_x_, _y_, _z_);
+	MapSetOffset(_x_,_y_);
+	UpdateSprite();
 }
 
 public KillByAgent()
@@ -240,19 +245,21 @@ public KillByAgent()
 
 public ableMovement( a )
 {
-	player_mode = 1 + a;
+	player_mode = 2 - a;
 }
 
 main()
 {
-	DebugText("Section: %s %dx%d", section_name, section_x, section_y);
-	DebugText("%d %d %d %d", section_move[0], section_move[1], section_move[2],section_move[3]);
+	DebugText("player_mode %d", player_mode);
+	ObjectToggle(hint,false);
+
 	if ( !player_alive )
 	{
 		handleGameOver();
 		return;	
 	}
 
+	GameState(0);
 	if ( player_mode == 1 )
 	{
 		GameState(1);
@@ -264,7 +271,6 @@ main()
 	}
 	else if ( player_mode == 0 )
 	{
-		GameState(0);
 		Menu();
 	}
 }
@@ -314,7 +320,6 @@ handleGameOver()
 		background = ( 0xFF << 24 | (255 - alpha) << 16 | (255 - alpha) << 8 | 0xFF);
 		text = ( alpha << 24 | alpha << 16 | alpha << 8 | alpha);
 		
-
 		LayerColour(0, background);
 		LayerColour(1, background);
 		LayerColour(2, background);
@@ -375,6 +380,8 @@ PlayerMove()
 	}
 	
 	EntityMove(128);
+
+	MapSetOffset(_x_, _y_ );
 }
 
 
@@ -391,15 +398,24 @@ CheckCollisions()
 		{
 			if ( type == TYPE_CLUEALERT )
 			{
-				GraphicsDraw("Clue nearby", TEXT, 0,0,6,0,0, WHITE);
+				ObjectToggle(hint,true);
 			}
 			else if ( type == TYPE_CLUE )
 			{
-				GraphicsDraw("Pickup Clue?", TEXT, 0,16,6,0,0, WHITE);
+				
 				if ( InputButton(0) )
 				{
+					GraphicsDraw("hint.png:2", SPRITE, 8, 40,6,0,0, RED);
 					EntityPublicFunction( current, "PickUp", "");
 				}
+				else
+				{
+					GraphicsDraw("hint.png:2", SPRITE, 8, 40,6,0,0, WHITE);
+				}
+			}
+			else if ( type == TYPE_EVENTMSG )
+			{
+				EntityPublicFunction( current, "Play", "");
 			}
 		}
 	}

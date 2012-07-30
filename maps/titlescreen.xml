@@ -14,6 +14,12 @@
 <object value="src_professor_hurt.png:front" type="animation" >
 	<position x="328" y="90" w="64" h="64" z="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
+	<setting key="id" value="*" type="hidden"/>
+	<entity value="kill_animation" />
+	<setting key="entity" value="kill_animation.mps" type="hidden"/>
+	<setting key="global" value="false" type="hidden"/>
+	<setting key="mirror" value="false" type="hidden"/>
+	<setting key="last-frame" value="src_professor_hurt.png:front_5" type=""/>
 </object>
 <object value="Developed by Luke Salisbury" type="text" >
 	<position x="179" y="265" w="138" h="9" z="0" r="0" f="0"/>
@@ -24,5 +30,14 @@
 	<position x="142" y="285" w="204" h="8" z="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 	<setting key="number" value="-1" type="hidden"/>
+</object>
+<object value="Press Enter to Start" type="text" >
+	<position x="203" y="249" w="91" h="8" z="0" r="0" f="0"/>
+	<color red="255" blue="255" green="255" alpha="255" />
+	<setting key="number" value="-1" type="hidden"/>
+	<setting key="id" value="*" type="hidden"/>
+	<entity value="flash_object" />
+	<setting key="entity" value="flash_object.mps" type="hidden"/>
+	<setting key="global" value="false" type="hidden"/>
 </object>
 </map>

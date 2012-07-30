@@ -1,3 +1,19 @@
+/***********************************************
+ * Copyright © Luke Salisbury
+ *
+ * This work is release under the GNU GENERAL PUBLIC LICENSE Version 3
+ * For Full Terms visit http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * --- OR ---
+ *
+ * You are free to share, to copy, distribute and transmit this work
+ * You are free to adapt this work
+ * Under the following conditions:
+ * - You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work). 
+ * - You may not use this work for commercial purposes.
+ * - If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
+ * Full terms of use: http://creativecommons.org/licenses/by-nc-sa/3.0/
+ ***********************************************/
 
 #include <core>
 native Hash(name[]);
@@ -35,19 +51,20 @@ StateAdd( state_name[], state_entry[], state_exit[])
 
 }
 
-StateSwitch( exp, state_name[] )
+
+StateSwitch( exp = true, name[] )
 {
 	if ( exp )
 	{
-		if ( !state_name[0] ) // Quit State management
+		if ( !name[0] ) // Quit State management
 		{
-			if ( current_state )
+			if ( current_state >= 0 )
 				FunctionCall( lstate[current_state][lsexit] );
 			current_state = -1;
 			return;
 		}
 
-		new h = Hash(state_name);
+		new h = Hash(name);
 		new next = -1;
 		for( new i = 0; i < lstates; i++ )
 		{
@@ -69,7 +86,6 @@ StateSwitch( exp, state_name[] )
 
 StateHandle( display = false )
 {
-	DebugText("Current States: %d", FunctionID("@MokoiGaming93BUG") );
 	if ( current_state >= 0 )
 	{
 		if ( display )

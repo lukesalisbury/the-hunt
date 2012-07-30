@@ -22,7 +22,7 @@
 
 enum CLUE_DETAIL {
 	id[64],
-	name[64]
+	string
 }
 
 forward public Index();
@@ -36,6 +36,8 @@ static menuSelect = 0;
 static clueChoosen = 0;
 static clueCount = -1;
 static clues[256][CLUE_DETAIL];
+static clueDescription[1000];
+
 
 static menuWait = 0;
 
@@ -80,7 +82,7 @@ ScanClues( refresh )
 			if ( q == 0 )
 			{
 				StringCopy( clues[clueCount][id], enityt );
-				EntityPublicFunction( enityt, "getName", "s", clues[clueCount][name] );
+				clues[clueCount][string] = EntityPublicVariable(enityt, "string_id");
 				clueCount++;
 			}
 	
@@ -128,12 +130,10 @@ public Clues()
 	{
 		for ( new n = 0; n< clueCount; n++ )
 		{
-			GraphicsDraw(clues[n][name], TEXT, 24,44+(20*n), 6, 0,0, menuSelect == n+1 ? 0xFF3333FF : 0xFFFFFFFF);
-
+			new offset = EntityPublicFunction( clues[n][id], "printName", "snnnn", clues[clueCount][id], 24,44+(20*n), 6, menuSelect == n+1 ? 0xFF3333FF : 0xFFFFFFFF );
 			if ( clueChoosen == n + 1)
 			{
-				new offset = StringLength(clues[n][name])*8;
-				GraphicsDraw("combine", TEXT, 24 + offset ,44+(20*n), 6, 0,0,  0xFFFF00FF);
+				GraphicsDraw("combine", TEXT, 24 + offset ,44+(20*n), 6, 0, 0,  0xFFFF00FF);
 			}
 		
 		}
@@ -141,14 +141,26 @@ public Clues()
 
 	if ( menuSelect > 0 )
 	{
+		if ( !clueDescription[0] )
+		{
+			LanguageString( clues[menuSelect-1][string], clueDescription )
+		}
+
 		GraphicsDraw("", RECTANGLE, 212, 16, 6, 180,200, 0x00000099);
+		GraphicsDraw(clueDescription, TEXT, 216, 20, 6, 0, 0, 0xFFFFFFFF);
 	}
 
 	/* Check for Up/down input then use the remainder to loop */
 	if ( InputButton(7) == 1 )
+	{
+		StringClear(clueDescription);
 		menuSelect--;
+	}
 	else if ( InputButton(8) == 1 )
+	{
+		StringClear(clueDescription);
 		menuSelect++;
+	}
 
 	menuSelect %= clueCount+1;
 	
