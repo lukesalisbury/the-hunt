@@ -1,2 +1,2 @@
-hotel_toilet	0	2
 hotel_hallway1	0	3
+hotel_toilet	0	2

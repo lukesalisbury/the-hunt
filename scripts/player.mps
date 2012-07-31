@@ -194,16 +194,14 @@ public Init( ... )
 
 	EntityPublicFunction(AGENTENTITY, "newLocation", "snn",  "Hotel", 0, 0 );
 	EntityPublicFunction(MENUSENTITY, "unlockLocation", "snn", "Hotel", 0, 0 );
-	EntityPublicFunction(MENUSENTITY, "unlockLocation", "snn", "Test", 0, 0 );
-	
 
 	/* Testing */
-	/*
+	/**/
 	EntityCreate("item_test_clue", "item_test_clue", 1, 1, 1, GLOBAL_MAP);
 	EntityPublicFunction("item_test_clue", "pickedUp", "" );
 	EntityCreate("item_test2_clue", "item_test2_clue", 1, 1, 1, GLOBAL_MAP);
 	EntityPublicFunction("item_test2_clue", "pickedUp", "" );
-	*/
+	/**/
 }
 
 
@@ -216,26 +214,26 @@ public Close( )
 
 public RefreshPosition() // Entity moved by another entity
 {
-	section_name[0] = 0; // Engine Bug???
+
+	StringClear(section_name);
 	SectionGet(section_name, section_x, section_y);
 
 	if ( section_x != -1 && section_y != -1)
 	{
-		section_move[0] = SectionValid(SELF, section_x, section_y+1);
-		section_move[1] = SectionValid(SELF, section_x+1, section_y);
-		section_move[2] = SectionValid(SELF, section_x, section_y-1);
-		section_move[3] = SectionValid(SELF, section_x-1, section_y);
+		section_move[0] = SectionValid(section_name, section_x, section_y+1);
+		section_move[1] = SectionValid(section_name, section_x+1, section_y);
+		section_move[2] = SectionValid(section_name, section_x, section_y-1);
+		section_move[3] = SectionValid(section_name, section_x-1, section_y);
 	}
-
 	
 }
 
 public UpdatePosition() // Entity moved by engine
 {
-	RefreshPosition();
 	EntityGetPosition(_x_, _y_, _z_);
-	MapSetOffset(_x_,_y_);
+	MapSetOffset(_x_+18.0,_y_+24.0);
 	UpdateSprite();
+	RefreshPosition();
 }
 
 public KillByAgent()
@@ -250,7 +248,6 @@ public ableMovement( a )
 
 main()
 {
-	DebugText("player_mode %d", player_mode);
 	ObjectToggle(hint,false);
 
 	if ( !player_alive )
@@ -381,7 +378,8 @@ PlayerMove()
 	
 	EntityMove(128);
 
-	MapSetOffset(_x_, _y_ );
+	EntitySetPosition(_x_, _y_, _z_);
+	MapSetOffset(_x_+18.0,_y_+24.0);
 }
 
 

@@ -21,8 +21,10 @@
 public Init( ... )
 {
 	name = "Test Clue";
-	description = "Hello all";
-	SetCombination("item_test2_clue", "", "Test", true);
+	description = "Picked up test clue";
+	SetCombination("item_test2_clue", "", "Test", 2, 2, true);
+	string_id = ITEM_WALLET_YOURS;
+	show_on_pickup = true;
 
 }
 

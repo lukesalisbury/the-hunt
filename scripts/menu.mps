@@ -130,7 +130,7 @@ public Clues()
 	{
 		for ( new n = 0; n< clueCount; n++ )
 		{
-			new offset = EntityPublicFunction( clues[n][id], "printName", "snnnn", clues[clueCount][id], 24,44+(20*n), 6, menuSelect == n+1 ? 0xFF3333FF : 0xFFFFFFFF );
+			new offset = EntityPublicFunction( clues[n][id], "printName", "nnnn", 24, 44+(20*n), 6, menuSelect == n+1 ? 0xFF3333FF : 0xFFFFFFFF );
 			if ( clueChoosen == n + 1)
 			{
 				GraphicsDraw("combine", TEXT, 24 + offset ,44+(20*n), 6, 0, 0,  0xFFFF00FF);
@@ -202,8 +202,15 @@ public Travel()
 			new i = menuSelect - 1;
 			if (i >= 0 )
 			{
-				SetEntityTarget( available_location[i], 0, 0 );
-				EntityPublicFunction(AGENTENTITY, "newLocation", "snn",  available_location[i][LNAME],  available_location[i][LX],  available_location[i][LY]);
+				new section_name[64];
+				new x;
+				SectionGet(section_name, x, x);
+				if ( !StringEqual(section_name, available_location[i][LNAME]) )
+				{
+					SetEntityTarget( available_location[i][LNAME],  available_location[i][LX],  available_location[i][LY] );
+					EntityPublicFunction(AGENTENTITY, "newLocation", "snn",  available_location[i][LNAME],  available_location[i][LX],  available_location[i][LY]);
+				}
+				
 			}
 			menuSelect = 0;
 			return 1;

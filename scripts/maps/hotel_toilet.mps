@@ -28,19 +28,18 @@ new screenWidth;
 new screenHeight;
 new object:fade = object:-1;
 new timer = 0;
-
+new intro = true;
 
 public Init( ... )
 {
-	
 
 	screenWidth = MiscGetWidth("__screen__"); 
 	screenHeight = MiscGetHeight("__screen__");
 	
 	
 	StateAdd( "@intro", "@entry_intro", "@exit_intro" );
-	StateSwitch(true, "@intro");
-
+	StateSwitch(intro, "@intro");
+	intro = false;
 }
 
 main()

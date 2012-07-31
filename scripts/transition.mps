@@ -92,12 +92,19 @@ MoveToTarget()
 {
 	if ( section_name[0] )
 	{
+		GameLog( "SectionSet '%s' '%dx%d'", section_name, section_x, section_y );
 		SectionSet(section_name, section_x, section_y);
-		//if ( !SectionValid(section_name, section_x, section_y) )
-		//{
-		//	GameLog( "Invalid Section '%s' '%dx%d'", section_name, section_x, section_y );
-		//	MapChange( error_map );
-		//}
+		if ( !SectionValid(section_name, section_x, section_y) )
+		{
+			GameLog( "Invalid Section '%s' '%dx%d'", section_name, section_x, section_y );
+			MapChange( error_map );
+		}
+		
+
+		
+		SectionGet(section_name, section_x, section_y);
+		GameLog( "Section '%s' '%dx%d'", section_name, section_x, section_y );
+
 		section_name[0] = 0;
 		return true;
 	}
