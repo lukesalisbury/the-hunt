@@ -1,0 +1,29 @@
+<sheet xmlns="http://mokoi.info/format/sheet">
+	<sprite name="wall6" mask="0">
+		<position x="64" y="128" w="8" h="32" />
+	</sprite>
+	<sprite name="wall5" mask="0">
+		<position x="56" y="128" w="8" h="32" />
+	</sprite>
+	<sprite name="wallc2" mask="0">
+		<position x="96" y="128" w="8" h="128" />
+	</sprite>
+	<sprite name="wallc1" mask="255">
+		<position x="152" y="128" w="8" h="128" />
+	</sprite>
+	<sprite name="wall4" mask="255">
+		<position x="232" y="160" w="16" h="8" />
+	</sprite>
+	<sprite name="wall3" mask="0">
+		<position x="96" y="128" w="8" h="128" />
+	</sprite>
+	<sprite name="wall2" mask="0">
+		<position x="120" y="0" w="16" h="128" />
+	</sprite>
+	<sprite name="floor" mask="0">
+		<position x="0" y="128" w="32" h="32" />
+	</sprite>
+	<sprite name="wall1" mask="255">
+		<position x="0" y="0" w="96" h="96" />
+	</sprite>
+</sheet>

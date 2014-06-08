@@ -1,22 +1,19 @@
 <map xmlns="http://mokoi.info/projects/mokoi">
 <settings>
 	<dimensions width="1" height="1" />
-	<color red="128" blue="128" green="128" mode="0" />
+	<color red="127" blue="127" green="127" mode="0" />
 </settings>
-<object value="lbc_inside.png:wall1" type="sprite" >
-	<position x="0" y="0" w="480" h="104" z="0" r="0" f="0"/>
+<object value="lbc_inside.png:wall1" type="sprite">
+	<position x="0" y="0" w="480" h="104" z="0" l="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 </object>
-<object value="lbc_inside.png:floor" type="sprite" >
-	<position x="0" y="104" w="480" h="224" z="0" r="0" f="0"/>
+<object value="lbc_inside.png:floor" type="sprite">
+	<position x="0" y="104" w="480" h="224" z="0" l="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 </object>
-<object value="Rectangle" type="rect" >
-	<position x="73" y="136" w="28" h="31" z="0" r="0" f="0"/>
+<object value="Rectangle" type="rect">
+	<position x="73" y="136" w="28" h="31" z="0" l="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
-	<setting key="id" value="*" type="hidden"/>
-	<entity value="entry_point" />
-	<setting key="entity" value="entry_point.mps" type="hidden"/>
-	<setting key="global" value="false" type="hidden"/>
+	<entity value="entry_point" language="mps" global="false"/>
 </object>
 </map>

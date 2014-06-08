@@ -9,26 +9,23 @@
  * You are free to share, to copy, distribute and transmit this work
  * You are free to adapt this work
  * Under the following conditions:
- *  You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work). 
+ *  You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).
  *  You may not use this work for commercial purposes.
  * Full terms of use: http://creativecommons.org/licenses/by-nc/3.0/
 
  ***********************************************/
 forward public PickUp();
 
-
-
-
 new Fixed:_x_, Fixed:_y_, Fixed:_z_;
 public object:obj = object:-1;
 
 new hotSpotX,hotSpotY;
 
-new childrenEntity[64];
+new childrenEntity{64};
 
 public Init( ... )
 {
-	obj = object:EntityGetNumber("object-id");
+	obj = EntityGetObject();
 
 	EntityGetPosition(_x_, _y_, _z_);
 	EntityGetSetting("clue-item", childrenEntity);
@@ -42,6 +39,7 @@ public Init( ... )
 	new dx = fround(_x_);
 	new dy = fround(_y_);
 	new w, h;
+
 	ObjectInfo(obj, w, h);
 
 	dx += w/2; // center point.
@@ -67,10 +65,10 @@ main()
 
 public PickUp()
 {
-	if ( childrenEntity[0] )
+	if ( childrenEntity{0} )
 	{
-		EntityCreate(childrenEntity, childrenEntity, 1, 1, 1, GLOBAL_MAP, 64, "");
-		EntityPublicFunction(childrenEntity, "pickedUp", "" );
+		new id = EntityCreate(childrenEntity, childrenEntity, 1, 1, 1, GLOBAL_MAP,  "");
+		EntityPublicFunction(id, "pickedUp", "" );
 	}
 	
 	EntityDelete();

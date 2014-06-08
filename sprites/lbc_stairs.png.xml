@@ -1,0 +1,8 @@
+<sheet xmlns="http://mokoi.info/format/sheet">
+	<sprite name="upright1" mask="0">
+		<position x="0" y="120" w="64" h="72" />
+	</sprite>
+	<sprite name="upleft1" mask="0">
+		<position x="192" y="120" w="64" h="72" />
+	</sprite>
+</sheet>

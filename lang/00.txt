@@ -1,3 +1,5 @@
-Hello
-$10 dollars in cash\nCouple of credit cards\nDriver License\n- Name: Tom Hunt\n- DOB: Jan 28th 1970
-You found your wallet.
+PRESS_START
+ITEM_WALLET_YOURS
+ITEM_WALLET_YOURS_SHORT
+ITEM_TEST
+ITEM_TEST_SHORT

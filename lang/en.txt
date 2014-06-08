@@ -1,3 +1,5 @@
-Hello
-ITEM_WALLET_YOURS
-ITEM_WALLET_YOURS_SHORT
+Press ❼ to Start
+$10 dollars in cash\nCouple of credit cards\nDriver License\n- Name: Tom Hunt\n- DOB: Jan 28th 1970
+You found your wallet.
+sadfsdfds
+123123

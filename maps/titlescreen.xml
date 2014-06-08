@@ -1,43 +1,40 @@
 <map xmlns="http://mokoi.info/projects/mokoi">
 <settings>
 	<dimensions width="1" height="1" />
-	<color red="128" blue="128" green="128" mode="0" />
+	<color red="127" blue="127" green="127" mode="0" />
 </settings>
-<object value="aim.png:logo" type="sprite" >
-	<position x="263" y="27" w="200" h="192" z="0" r="0" f="0"/>
+<object value="aim.png:logo" type="sprite">
+	<position x="263" y="27" w="200" h="192" z="0" l="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 </object>
-<object value="title.png:logo" type="sprite" >
-	<position x="46" y="7" w="256" h="256" z="0" r="0" f="0"/>
+<object value="title.png:logo" type="sprite">
+	<position x="46" y="7" w="256" h="256" z="0" l="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 </object>
-<object value="src_professor_hurt.png:front" type="animation" >
-	<position x="328" y="90" w="64" h="64" z="0" r="0" f="0"/>
+<object value="src_professor_hurt.png:front" type="sprite">
+	<position x="328" y="90" w="64" h="64" z="0" l="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
-	<setting key="id" value="*" type="hidden"/>
-	<entity value="kill_animation" />
-	<setting key="entity" value="kill_animation.mps" type="hidden"/>
-	<setting key="global" value="false" type="hidden"/>
 	<setting key="mirror" value="false" type="hidden"/>
 	<setting key="last-frame" value="src_professor_hurt.png:front_5" type=""/>
+	<entity value="kill_animation" language="mps" global="false"/>
 </object>
-<object value="Developed by Luke Salisbury" type="text" >
-	<position x="179" y="265" w="138" h="9" z="0" r="0" f="0"/>
+<object value="Developed by Luke Salisbury" type="text">
+	<position x="179" y="265" w="97" h="8" z="0" l="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 	<setting key="number" value="-1" type="hidden"/>
+	<setting key="text-string" value="-1" />
 </object>
-<object value="Additional Work Credits: See AUTHORS.txt" type="text" >
-	<position x="142" y="285" w="204" h="8" z="0" r="0" f="0"/>
+<object value="Additional Work Credits: See AUTHORS.txt" type="text">
+	<position x="142" y="285" w="150" h="7" z="0" l="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 	<setting key="number" value="-1" type="hidden"/>
+	<setting key="text-string" value="-1" />
 </object>
-<object value="Press Enter to Start" type="text" >
-	<position x="203" y="249" w="91" h="8" z="0" r="0" f="0"/>
+<object value="Press ❼ to Start" type="text">
+	<position x="203" y="249" w="57" h="7" z="0" l="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 	<setting key="number" value="-1" type="hidden"/>
-	<setting key="id" value="*" type="hidden"/>
-	<entity value="flash_object" />
-	<setting key="entity" value="flash_object.mps" type="hidden"/>
-	<setting key="global" value="false" type="hidden"/>
+	<setting key="text-string" value="0" />
+	<entity value="flash_object" language="mps" global="false"/>
 </object>
 </map>

@@ -1,2 +1,2 @@
-......  I'll never drinking like that again.
-Where's my wallet. It must be in is bathroom some where
+HOTEL_TOILET_INTRO
+HOTEL_TOILET_EXIT

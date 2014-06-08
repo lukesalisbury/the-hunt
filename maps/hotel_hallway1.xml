@@ -1,30 +1,30 @@
 <map xmlns="http://mokoi.info/projects/mokoi">
 <settings>
 	<dimensions width="1" height="1" />
-	<color red="128" blue="128" green="128" mode="0" />
+	<color red="127" blue="127" green="127" mode="0" />
 </settings>
-<object value="lbc_inside.png:wall1" type="sprite" >
-	<position x="160" y="32" w="384" h="96" z="1" r="0" f="0"/>
+<object value="lbc_inside.png:wall1" type="sprite">
+	<position x="160" y="32" w="384" h="96" z="0" l="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 </object>
-<object value="lbc_inside.png:floor" type="sprite" >
-	<position x="56" y="0" w="96" h="288" z="0" r="0" f="0"/>
+<object value="lbc_inside.png:floor" type="sprite">
+	<position x="56" y="0" w="96" h="288" z="0" l="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 </object>
-<object value="lbc_inside.png:floor" type="sprite" >
-	<position x="152" y="128" w="352" h="160" z="0" r="0" f="0"/>
+<object value="lbc_inside.png:floor" type="sprite">
+	<position x="152" y="128" w="352" h="160" z="0" l="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 </object>
-<object value="lbc_inside.png:wall5" type="sprite" >
-	<position x="48" y="0" w="8" h="280" z="0" r="0" f="0"/>
+<object value="lbc_inside.png:wall5" type="sprite">
+	<position x="48" y="0" w="8" h="280" z="0" l="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 </object>
-<object value="lbc_inside.png:wall4" type="sprite" >
-	<position x="48" y="280" w="448" h="8" z="0" r="0" f="0"/>
+<object value="lbc_inside.png:wall4" type="sprite">
+	<position x="48" y="280" w="448" h="8" z="0" l="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 </object>
-<object value="lbc_inside.png:wall3" type="sprite" >
-	<position x="152" y="0" w="8" h="128" z="0" r="0" f="0"/>
+<object value="lbc_inside.png:wall3" type="sprite">
+	<position x="152" y="0" w="8" h="128" z="0" l="0" r="0" f="0"/>
 	<color red="255" blue="255" green="255" alpha="255" />
 </object>
 </map>
